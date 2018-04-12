@@ -141,7 +141,7 @@ impl cpu {
     }
  
     /* MOV instruction. */
-    fn mov_instruction(register1: u8, register2: u8) {
+    fn mov_instruction(register1: registers, register2: registers) {
         println!("MOV Instruction.");
     }
 
