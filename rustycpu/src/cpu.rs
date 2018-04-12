@@ -1,25 +1,21 @@
 
 pub struct cpu {
-    // private static int pc = 0;
-    // private static int sp = 1000;
-    // private static int ir = 0;
-    // private static int ac = 0;
-    // private static int x, y;
     // private static int instructionsToInterrupt;
     // private static int instructionsSinceInterrupt = 0;
     // private static boolean exitFlag = false;
     // private static boolean kernelModeFlag = false;
-    pub program_counter: i16,
-    pub stack_pointer: i16,
-    pub instruction_pointer: i16,
-    pub accumulator: i16,
-    pub register1: i16,
-    pub register2: i16,
-    pub register3: i16,
-    pub register4: i16,
+    program_counter: i16,
+    stack_pointer: i16,
+    instruction_pointer: i16,
+    accumulator: i16,
+    register1: i16,
+    register2: i16,
+    register3: i16,
+    register4: i16,
 }
 
 impl cpu {
+    /* Constructs a new CPU struct with values. */
     pub fn new(pc: i16, sp: i16, ip: i16, ac: i16, r1: i16, r2: i16, r3: i16, r4: i16) -> cpu {
         cpu {
             program_counter: pc,
@@ -33,6 +29,7 @@ impl cpu {
         }
     }
 
+    /* Resets the CPU values to 0 i.e. the default state. */
     pub fn reset_cpu(&mut self) {
         self.program_counter = 0;
         self.stack_pointer = 0;
@@ -44,6 +41,23 @@ impl cpu {
         self.register4 = 0;
     }
 
+    pub fn increment_pc(&mut self) {
+        self.program_counter += 1;
+    }
+
+    pub fn increment_sp(&mut self) {
+        self.stack_pointer += 1;
+    }
+
+    pub fn increment_ip(&mut self) {
+        self.instruction_pointer += 1;
+    }
+
+    pub fn increment_ac(&mut self) {
+        self.accumulator += 1;
+    }
+
+    /* Prints the values of the CPU. */
     pub fn print_cpu(&mut self) {
         println!("Program Counter: {}", self.program_counter);
         println!("Stack Pointer: {}", self.stack_pointer);
