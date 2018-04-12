@@ -136,27 +136,27 @@ impl cpu {
     }
 
     /* NOP instruction. */
-    fn nop_instruction() {
+    pub fn nop_instruction() {
         println!("NOP Instruction.");
     }
  
     /* MOV instruction. */
-    fn mov_instruction(register1: registers, register2: registers) {
+    pub fn mov_instruction(register1: registers, register2: registers) {
         println!("MOV Instruction.");
     }
 
     /* ADD instruction. */
-    fn add_instruction(register1: u8, register2: u8) {
+    pub fn add_instruction(register1: u8, register2: u8) {
         println!("ADD Instruction.");
     }
 
     /* SUB instruction. */
-    fn sub_instruction(register1: u8, register2: u8) {
+    pub fn sub_instruction(register1: u8, register2: u8) {
         println!("SUB Instruction.");
     }
 
     /* JMP instruction. */
-    fn jmp_instruction(register1: u8, register2: u8) {
+    pub fn jmp_instruction(register1: u8, register2: u8) {
         println!("JMP Instruction.");
     }
 
