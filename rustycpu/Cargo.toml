@@ -1,0 +1,6 @@
+[package]
+name = "rustycpu"
+version = "0.1.0"
+authors = ["tylerjaacks <GFT-f99-xH7-wmV>"]
+
+[dependencies]
