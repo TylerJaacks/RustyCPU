@@ -15,12 +15,21 @@ pub struct cpu {
     auxiliary_carry: bool,
 }
 
+/* CPU instructions. */
 pub enum instructions {
     NOP,
     MOV,
     ADD,
     SUB,
     JMP
+}
+
+/* CPU registers. */
+pub enum registers {
+    R1,
+    R2,
+    R3,
+    R4
 }
 
 /* CPU implementation. */
