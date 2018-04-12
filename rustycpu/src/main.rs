@@ -8,17 +8,12 @@ fn main() {
     /* Resets the cpu to default values. */
     rusty_cpu.reset_cpu();
 
-    for x in 0..100 {
-        /* Increment program counter. */
-        rusty_cpu.increment_pc();
-
-        /* Prints the values of the cpu. */
-        rusty_cpu.print_cpu();
-    }
-
     /* Resets the cpu to default values. */
     rusty_cpu.reset_cpu();
 
     /* Prints the values of the cpu. */
     rusty_cpu.print_cpu();
+
+    /* Executes a single instruction. */
+    
 }

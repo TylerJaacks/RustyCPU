@@ -1,13 +1,13 @@
 /* CPU object struct. */
 pub struct cpu {
-    program_counter: i16,
-    stack_pointer: i16,
-    instruction_pointer: i16,
-    accumulator: i16,
-    register1: i16,
-    register2: i16,
-    register3: i16,
-    register4: i16,
+    program_counter: u8,
+    stack_pointer: u8,
+    instruction_pointer: u8,
+    accumulator: u8,
+    register1: u8,
+    register2: u8,
+    register3: u8,
+    register4: u8,
     sign_flag: bool,
     zero_flag: bool,
     parity_flag: bool,
@@ -15,10 +15,18 @@ pub struct cpu {
     auxiliary_carry: bool,
 }
 
+pub enum instructions {
+    NOP,
+    MOV,
+    ADD,
+    SUB,
+    JMP
+}
+
 /* CPU implementation. */
 impl cpu {
     /* Constructs a new CPU struct with values. */
-    pub fn new(pc: i16, sp: i16, ip: i16, ac: i16, r1: i16, r2: i16, r3: i16, r4: i16, sf: bool, zf: bool, pf: bool, cf: bool, acf: bool) -> cpu {
+    pub fn new(pc: u8, sp: u8, ip: u8, ac: u8, r1: u8, r2: u8, r3: u8, r4: u8, sf: bool, zf: bool, pf: bool, cf: bool, acf: bool) -> cpu {
         cpu {
             program_counter: pc,
             stack_pointer: sp,
@@ -115,6 +123,56 @@ impl cpu {
             self.auxiliary_carry = true;
         } else {
             self.auxiliary_carry = false;
+        }
+    }
+
+    /* NOP instruction. */
+    fn nop_instruction() {
+        println!("NOP Instruction.");
+    }
+ 
+    /* MOV instruction. */
+    fn mov_instruction(register1: u8, register2: u8) {
+        println!("MOV Instruction.");
+    }
+
+    /* ADD instruction. */
+    fn add_instruction(register1: u8, register2: u8) {
+        println!("ADD Instruction.");
+    }
+
+    /* SUB instruction. */
+    fn sub_instruction(register1: u8, register2: u8) {
+        println!("SUB Instruction.");
+    }
+
+    /* JMP instruction. */
+    fn jmp_instruction(register1: u8, register2: u8) {
+        println!("JMP Instruction.");
+    }
+
+    /* Executes a single instruction. */
+    pub fn execute_instruction(&mut self, instruction: instructions, param1: u8, param2: u8) {
+        match instruction {
+            NOP => {
+
+            },
+
+            MOV => {
+
+            },
+
+            ADD => {
+
+            },
+
+            SUB => {
+
+            },
+
+            JMP => {
+
+            }.   
         }
     }
 
