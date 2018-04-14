@@ -1,4 +1,3 @@
-#[derive(Debug)]
 /* CPU object struct. */
 pub struct cpu {
     program_counter: u8,
@@ -27,6 +26,7 @@ pub enum instructions {
 
 /* CPU registers. */
 #[derive(PartialEq, Eq)]
+#[derive(Debug)]
 pub enum registers {
     NONE,
     R1,
@@ -145,45 +145,45 @@ impl cpu {
  
     /* MOV instruction. */
     pub fn mov_instruction(&mut self, register1: registers, register2: registers) {
-        println!("MOV Instruction: Moving the value of {} into {}. \n", register1, register2);
+        println!("MOV Instruction: Moving the value of {:?} into {:?}. \n", register1, register2);
 
         if (register1 == registers::R1) {
             if (register2 == registers::R1) {
                 self.register1 = self.register1;
             } else if (register2 == registers::R2) {
-                self.register1 = self.register2;
+                self.register2 = self.register1;
             } else if (register2 == registers::R3) {
-                self.register1 = self.register3;
+                self.register3 = self.register1;
             } else if (register2 == registers::R4) {
-                self.register1 = self.register4;
+                self.register4 = self.register1;
             }
         } else if (register1 == registers::R2) {
             if (register2 == registers::R1) {
-                self.register2 = self.register1;
+                self.register1 = self.register2;
             } else if (register2 == registers::R2) {
                 self.register2 = self.register2;
             } else if (register2 == registers::R3) {
-                self.register2 = self.register3;
+                self.register3 = self.register2;
             } else if (register2 == registers::R4) {
-                self.register2 = self.register4;
+                self.register4 = self.register2;
             }
         } else if (register1 == registers::R3) {
             if (register2 == registers::R1) {
-                self.register3 = self.register1;
+                self.register1 = self.register3;
             } else if (register2 == registers::R2) {
-                self.register3 = self.register2;
+                self.register2 = self.register3;
             } else if (register2 == registers::R3) {
                 self.register3 = self.register3;
             } else if (register2 == registers::R4) {
-                self.register3 = self.register4;
+                self.register4 = self.register3;
             }
         } else if (register1 == registers::R4) {
             if (register2 == registers::R1) {
-                self.register4 = self.register1;
+                self.register1 = self.register4;
             } else if (register2 == registers::R2) {
-                self.register4 = self.register2;
+                self.register2 = self.register4;
             } else if (register2 == registers::R3) {
-                self.register4 = self.register3;
+                self.register3 = self.register4;
             } else if (register2 == registers::R4) {
                 self.register4 = self.register4;
             }
@@ -206,7 +206,7 @@ impl cpu {
     }
 
     /* Executes a single instruction. */
-    pub fn execute_instruction(&mut self, instruction: instructions, param1: registers, param2: registers, param3: u8) {
+    pub fn execute_instruction(&mut self, instruction: instructions, param1: registers, param2: registers) {
         self.increment_pc();
         self.increment_ip();
         
@@ -220,7 +220,7 @@ impl cpu {
             },
 
             instructions::ADD => {
-
+                Self::add_instruction(self, param1, param2);
             },
 
             instructions::SUB => {
