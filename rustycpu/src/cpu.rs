@@ -1,3 +1,5 @@
+use std::fmt;
+
 /* CPU object struct. */
 pub struct cpu {
     program_counter: u8,
@@ -26,13 +28,40 @@ pub enum instructions {
 
 /* CPU registers. */
 #[derive(PartialEq, Eq)]
-#[derive(Debug)]
 pub enum registers {
     NONE,
     R1,
     R2,
     R3,
     R4
+}
+
+/* Instructions display formater. */
+impl fmt::Display for instructions {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+
+        match self {
+            NOP => write!(f, "NOP"),
+            MOV => write!(f, "MOV"),
+            ADD => write!(f, "ADD"),
+            SUB => write!(f, "SUB"),
+            SUB => write!(f, "JMP"),
+        }
+    }
+}
+
+/* Instructions register formater. */
+impl fmt::Display for registers {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+
+        match self {
+            NONE => write!(f, "NONE"),
+            R1 => write!(f, "R1"),
+            R2 => write!(f, "R2"),
+            R3 => write!(f, "R3"),
+            R4 => write!(f, "R4"),
+        }
+    }
 }
 
 /* CPU implementation. */
@@ -145,7 +174,7 @@ impl cpu {
  
     /* MOV instruction. */
     pub fn mov_instruction(&mut self, register1: registers, register2: registers) {
-        println!("MOV Instruction: Moving the value of {:?} into {:?}. \n", register1, register2);
+        println!("MOV Instruction: Moving the value of {} into {}. \n", register1, register2);
 
         if (register1 == registers::R1) {
             if (register2 == registers::R1) {
@@ -191,25 +220,106 @@ impl cpu {
     }
 
     /* ADD instruction. */
-    pub fn add_instruction(register1: u8, register2: u8) {
-        println!("ADD Instruction.");
+    pub fn add_instruction(&mut self, register1: registers, register2: registers) {
+        println!("ADD Instruction: Adding the value of {} and {} and putting it in {}. \n", register1, register2, register1);
+
+        if (register1 == registers::R1) {
+            if (register2 == registers::R1) {
+                self.register1 = self.register1 + self.register1;
+            } else if (register2 == registers::R2) {
+                self.register1 = self.register1 + self.register2;
+            } else if (register2 == registers::R3) {
+                self.register1 = self.register1 + self.register3;
+            } else if (register2 == registers::R4) {
+                self.register1 = self.register1 + self.register4;
+            }
+        } else if (register1 == registers::R2) {
+            if (register2 == registers::R1) {
+                self.register2 = self.register2 + self.register1;
+            } else if (register2 == registers::R2) {
+                self.register2 = self.register2 + self.register2;
+            } else if (register2 == registers::R3) {
+                self.register2 = self.register2 + self.register3;
+            } else if (register2 == registers::R4) {
+                self.register2 = self.register2 + self.register4;
+            }
+        } else if (register1 == registers::R3) {
+            if (register2 == registers::R1) {
+                self.register3 = self.register2 + self.register1;
+            } else if (register2 == registers::R2) {
+                self.register3 = self.register2 + self.register2;
+            } else if (register2 == registers::R3) {
+                self.register3 = self.register2 + self.register3;
+            } else if (register2 == registers::R4) {
+               self.register3 = self.register2 + self.register4;
+            }
+        } else if (register1 == registers::R4) {
+            if (register2 == registers::R1) {
+                self.register4 = self.register2 + self.register1;
+            } else if (register2 == registers::R2) {
+                self.register4 = self.register2 + self.register2;
+            } else if (register2 == registers::R3) {
+                self.register4 = self.register2 + self.register3;
+            } else if (register2 == registers::R4) {
+                self.register4 = self.register2 + self.register4;
+            }
+        }
     }
 
     /* SUB instruction. */
-    pub fn sub_instruction(register1: u8, register2: u8) {
-        println!("SUB Instruction.");
+    pub fn sub_instruction(&mut self, register1: registers, register2: registers) {
+        println!("SUB Instruction: Subtracting the value of {} and {} and putting it in {}. \n", register1, register2, register1);
+
+        if (register1 == registers::R1) {
+            if (register2 == registers::R1) {
+                self.register1 = self.register1 - self.register1;
+            } else if (register2 == registers::R2) {
+                self.register1 = self.register1 - self.register2;
+            } else if (register2 == registers::R3) {
+                self.register1 = self.register1 - self.register3;
+            } else if (register2 == registers::R4) {
+                self.register1 = self.register1 - self.register4;
+            }
+        } else if (register1 == registers::R2) {
+            if (register2 == registers::R1) {
+                self.register2 = self.register2 - self.register1;
+            } else if (register2 == registers::R2) {
+                self.register2 = self.register2 - self.register2;
+            } else if (register2 == registers::R3) {
+                self.register2 = self.register2 - self.register3;
+            } else if (register2 == registers::R4) {
+                self.register2 = self.register2 - self.register4;
+            }
+        } else if (register1 == registers::R3) {
+            if (register2 == registers::R1) {
+                self.register3 = self.register2 - self.register1;
+            } else if (register2 == registers::R2) {
+                self.register3 = self.register2 - self.register2;
+            } else if (register2 == registers::R3) {
+                self.register3 = self.register2 - self.register3;
+            } else if (register2 == registers::R4) {
+               self.register3 = self.register2 - self.register4;
+            }
+        } else if (register1 == registers::R4) {
+            if (register2 == registers::R1) {
+                self.register4 = self.register2 - self.register1;
+            } else if (register2 == registers::R2) {
+                self.register4 = self.register2 - self.register2;
+            } else if (register2 == registers::R3) {
+                self.register4 = self.register2 - self.register3;
+            } else if (register2 == registers::R4) {
+                self.register4 = self.register2 - self.register4;
+            }
+        }
     }
 
     /* JMP instruction. */
-    pub fn jmp_instruction(register1: u8, register2: u8) {
+    pub fn jmp_instruction(&mut self, register1: registers, register2: registers) {
         println!("JMP Instruction.");
     }
 
     /* Executes a single instruction. */
     pub fn execute_instruction(&mut self, instruction: instructions, param1: registers, param2: registers) {
-        self.increment_pc();
-        self.increment_ip();
-        
         match instruction {
             instructions::NOP => {
                 Self::nop_instruction();
@@ -231,6 +341,9 @@ impl cpu {
 
             },
         }
+
+        self.increment_pc();
+        self.increment_ip();
     }
 
     /* Prints the values of the CPU. */
