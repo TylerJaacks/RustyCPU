@@ -9,31 +9,37 @@ fn main() {
     rusty_cpu.print_cpu();
 
     /* Executes a single instruction. */
-    rusty_cpu.execute_instruction(cpu::instructions::MOV, cpu::registers::R1, cpu::registers::R2);
+    rusty_cpu.execute_instruction(cpu::instructions::MOV, cpu::registers::R1, cpu::registers::R2, 0);
 
     /* Prints the values of the cpu. */
     rusty_cpu.print_cpu();
 
     /* Executes a single instruction. */
-    rusty_cpu.execute_instruction(cpu::instructions::NOP, cpu::registers::NONE, cpu::registers::NONE);
+    rusty_cpu.execute_instruction(cpu::instructions::NOP, cpu::registers::NONE, cpu::registers::NONE, 0);
 
     /* Prints the values of the cpu. */
     rusty_cpu.print_cpu();
 
     /* Executes a single instruction. */
-    rusty_cpu.execute_instruction(cpu::instructions::MOV, cpu::registers::R2, cpu::registers::R3);
+    rusty_cpu.execute_instruction(cpu::instructions::MOV, cpu::registers::R2, cpu::registers::R3, 0);
 
     /* Prints the values of the cpu. */
     rusty_cpu.print_cpu();
 
     /* Executes a single instruction. */
-    rusty_cpu.execute_instruction(cpu::instructions::ADD, cpu::registers::R1, cpu::registers::R2);
+    rusty_cpu.execute_instruction(cpu::instructions::ADD, cpu::registers::R1, cpu::registers::R2, 0);
 
     /* Prints the values of the cpu. */
     rusty_cpu.print_cpu();
 
     /* Executes a single instruction. */
-    rusty_cpu.execute_instruction(cpu::instructions::SUB, cpu::registers::R1, cpu::registers::R2);
+    rusty_cpu.execute_instruction(cpu::instructions::SUB, cpu::registers::R1, cpu::registers::R2, 0);
+
+    /* Prints the values of the cpu. */
+    rusty_cpu.print_cpu();
+
+    /* Executes a single instruction. */
+    rusty_cpu.execute_instruction(cpu::instructions::LOADV, cpu::registers::R1, cpu::registers::R2, 100);
 
     /* Prints the values of the cpu. */
     rusty_cpu.print_cpu();

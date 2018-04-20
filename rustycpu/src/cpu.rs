@@ -23,7 +23,8 @@ pub enum instructions {
     MOV,
     ADD,
     SUB,
-    JMP
+    JMP,
+    LOADV
 }
 
 /* CPU registers. */
@@ -45,7 +46,8 @@ impl fmt::Display for instructions {
             MOV => write!(f, "MOV"),
             ADD => write!(f, "ADD"),
             SUB => write!(f, "SUB"),
-            SUB => write!(f, "JMP"),
+            JMP => write!(f, "JMP"),
+            LOADV => write!(f, "LOADV"),
         }
     }
 }
@@ -270,7 +272,6 @@ impl cpu {
     pub fn sub_instruction(&mut self, register1: registers, register2: registers) {
         println!("SUB Instruction: Subtracting the value of {} and {} and putting it in {}. \n", register1, register2, register1);
 
-        /* TODO Broken! */
         if (register1 == registers::R1) {
             if (register2 == registers::R1) {
                 self.register1 = self.register1 - self.register1;
@@ -316,11 +317,26 @@ impl cpu {
 
     /* JMP instruction. */
     pub fn jmp_instruction(&mut self, register1: registers, register2: registers) {
+        /* Moves the Stack Pointer to the jump point. */
         println!("JMP Instruction.");
     }
 
+    /* LOADV instruction. */
+    pub fn loadv_instruction(&mut self, register1: registers, value: u8) {
+        println!("LOADV Instruction.");
+        if (register1 == registers::R1) {
+            self.register1 = value;
+        } else if (register1 == registers::R2) {
+            self.register2 = value;
+        } else if (register1 == registers::R3) {
+            self.register3 = value;
+        } else if (register1 == registers::R4) {
+            self.register4 = value;
+        }
+    }
+
     /* Executes a single instruction. */
-    pub fn execute_instruction(&mut self, instruction: instructions, param1: registers, param2: registers) {
+    pub fn execute_instruction(&mut self, instruction: instructions, param1: registers, param2: registers, param3: u8) {
         match instruction {
             instructions::NOP => {
                 Self::nop_instruction();
@@ -335,12 +351,16 @@ impl cpu {
             },
 
             instructions::SUB => {
-
+                Self::sub_instruction(self, param1, param2);
             },
 
             instructions::JMP => {
-
+                Self::jmp_instruction(self, param1, param2);
             },
+
+            instructions::LOADV => {
+                Self::loadv_instruction(self, param1, param3);
+            }
         }
 
         self.increment_pc();
