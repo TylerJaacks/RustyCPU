@@ -43,4 +43,7 @@ fn main() {
 
     /* Prints the values of the cpu. */
     rusty_cpu.print_cpu();
+
+    /* Fetches instructions and executes each instruction from a file. */
+    rusty_cpu.fetch_and_execute_instructions();
 }

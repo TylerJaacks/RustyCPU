@@ -1,4 +1,8 @@
 use std::fmt;
+use std::io::BufReader;
+use std::io::BufRead;
+use std::fs::File;
+use std::path::Path;
 
 /* CPU object struct. */
 pub struct cpu {
@@ -365,6 +369,11 @@ impl cpu {
 
         self.increment_pc();
         self.increment_ip();
+    }
+
+    /* Fetches the instructions from a file and execute them. */
+    pub fn fetch_and_execute_instructions(&mut self) {
+
     }
 
     /* Prints the values of the CPU. */
