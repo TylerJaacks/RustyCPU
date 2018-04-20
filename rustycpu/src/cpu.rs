@@ -270,6 +270,7 @@ impl cpu {
     pub fn sub_instruction(&mut self, register1: registers, register2: registers) {
         println!("SUB Instruction: Subtracting the value of {} and {} and putting it in {}. \n", register1, register2, register1);
 
+        /* TODO Broken! */
         if (register1 == registers::R1) {
             if (register2 == registers::R1) {
                 self.register1 = self.register1 - self.register1;
