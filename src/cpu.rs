@@ -373,10 +373,35 @@ impl cpu {
     }
 
     /* String to Enum */
-    pub fn string_to_register(&mut self, string: &str) -> registers {
+    pub fn string_to_register(string: &str) -> registers {
         if (string == "R1") {
-            return cpu::registers::R1;
+            return registers::R1;
+        } else if (string == "R2") {
+            return registers::R2;
+        } else if (string == "R3") {
+            return registers::R3;
+        } else if (string == "R4") {
+            return registers::R4;
+        } else {
+            return registers::NONE;
         }
+    }
+
+    /* Prints the values of the CPU. */
+    pub fn print_cpu(&mut self) {
+        println!("Program Counter: {}", self.program_counter);
+        println!("Stack Pointer: {}", self.stack_pointer);
+        println!("Instruction Pointer: {}", self.instruction_pointer);
+        println!("Accumulator: {}", self.accumulator);
+        println!("Register 1: {}", self.register1);
+        println!("Register 2: {}", self.register2);
+        println!("Register 3: {}", self.register3);
+        println!("Register 4: {}", self.register4);
+        println!("Sign Flag: {}", self.sign_flag);
+        println!("Zero Flag: {}", self.zero_flag);
+        println!("Parity Flag: {}", self.parity_flag);
+        println!("Carry Flag: {}", self.carry_flag);
+        println!("Auxiliary Carry Flag: {}\n", self.auxiliary_carry);
     }
 
     /* Fetches the instructions from a file and execute them. */
@@ -397,31 +422,16 @@ impl cpu {
             } else if (instructions[0] == "JMP") {
                 Self::execute_instruction(self, instructions::JMP, registers::NONE, registers::NONE, 0);
             } else if (instructions[0] == "MOV") {
-                Self::execute_instruction(self, instructions::MOV, registers::R1, registers::R2, 0);
+                Self::execute_instruction(self, instructions::MOV, Self::string_to_register(instructions[1]), Self::string_to_register(instructions[2]), 0);
             } else if  (instructions[0] == "ADD") {
-                Self::execute_instruction(self, instructions::ADD, registers::R1, registers::R2, 0);
+                Self::execute_instruction(self, instructions::ADD, Self::string_to_register(instructions[1]), Self::string_to_register(instructions[2]), 0);
             } else if  (instructions[0] == "SUB") {
-                Self::execute_instruction(self, instructions::SUB, registers::R1, registers::R2, 0);
+                Self::execute_instruction(self, instructions::SUB, Self::string_to_register(instructions[1]), Self::string_to_register(instructions[2]), 0);
             } else if  (instructions[0] == "LOADV") {
-                Self::execute_instruction(self, instructions::LOADV, registers::R1, registers::R2, 0);
+                Self::execute_instruction(self, instructions::LOADV, Self::string_to_register(instructions[1]), registers::NONE, instructions[2].parse::<u8>().unwrap());
             }
-        }
-    }
 
-    /* Prints the values of the CPU. */
-    pub fn print_cpu(&mut self) {
-        println!("Program Counter: {}", self.program_counter);
-        println!("Stack Pointer: {}", self.stack_pointer);
-        println!("Instruction Pointer: {}", self.instruction_pointer);
-        println!("Accumulator: {}", self.accumulator);
-        println!("Register 1: {}", self.register1);
-        println!("Register 2: {}", self.register2);
-        println!("Register 3: {}", self.register3);
-        println!("Register 4: {}", self.register4);
-        println!("Sign Flag: {}", self.sign_flag);
-        println!("Zero Flag: {}", self.zero_flag);
-        println!("Parity Flag: {}", self.parity_flag);
-        println!("Carry Flag: {}", self.carry_flag);
-        println!("Auxiliary Carry Flag: {}\n", self.auxiliary_carry);
+            Self::print_cpu(self);
+        }
     }
 }
