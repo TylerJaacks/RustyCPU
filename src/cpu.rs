@@ -1,8 +1,9 @@
+#![allow(warnings)]
 use std::fmt;
-use std::io::BufReader;
-use std::io::BufRead;
+
+use std::env;
 use std::fs::File;
-use std::path::Path;
+use std::io::prelude::*;
 
 /* CPU object struct. */
 pub struct cpu {
@@ -371,9 +372,38 @@ impl cpu {
         self.increment_ip();
     }
 
-    /* Fetches the instructions from a file and execute them. */
-    pub fn fetch_and_execute_instructions(&mut self) {
+    /* String to Enum */
+    pub fn string_to_register(&mut self, string: String) -> registers {
+        return cpu::registers::r1;
+    }
 
+    /* Fetches the instructions from a file and execute them. */
+    pub fn fetch_and_execute_instructions(&mut self, filename: &str) {
+        let mut file = File::open(filename).expect("File not found!");
+        let mut line = String::new();
+
+        file.read_to_string(&mut line).expect("Something went wrong reading!");
+
+        let instructions: Vec<&str> = line.lines().collect();
+
+        for i in &instructions {
+            println!("{}", i);
+            let instructions: Vec<&str> = i.split_whitespace().collect();
+
+            if (instructions[0] == "NOP") {
+                Self::execute_instruction(self, instructions::NOP, registers::NONE, registers::NONE, 0);
+            } else if (instructions[0] == "JMP") {
+                Self::execute_instruction(self, instructions::JMP, registers::NONE, registers::NONE, 0);
+            } else if (instructions[0] == "MOV") {
+                Self::execute_instruction(self, instructions::MOV, registers::R1, registers::R2, 0);
+            } else if  (instructions[0] == "ADD") {
+                Self::execute_instruction(self, instructions::ADD, registers::R1, registers::R2, 0);
+            } else if  (instructions[0] == "SUB") {
+                Self::execute_instruction(self, instructions::SUB, registers::R1, registers::R2, 0);
+            } else if  (instructions[0] == "LOADV") {
+                Self::execute_instruction(self, instructions::LOADV, registers::R1, registers::R2, 0);
+            }
+        }
     }
 
     /* Prints the values of the CPU. */
