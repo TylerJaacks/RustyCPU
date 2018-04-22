@@ -373,8 +373,10 @@ impl cpu {
     }
 
     /* String to Enum */
-    pub fn string_to_register(&mut self, string: String) -> registers {
-        return cpu::registers::r1;
+    pub fn string_to_register(&mut self, string: &str) -> registers {
+        if (string == "R1") {
+            return cpu::registers::R1;
+        }
     }
 
     /* Fetches the instructions from a file and execute them. */
