@@ -1,9 +1,9 @@
 #![allow(warnings)]
-use std::fmt;
-
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
+use std::fmt;
+use std::path::PathBuf;
 
 /* CPU object struct. */
 pub struct cpu {
@@ -405,7 +405,7 @@ impl cpu {
     }
 
     /* Fetches the instructions from a file and execute them. */
-    pub fn fetch_and_execute_instructions(&mut self, filename: &str) {
+    pub fn fetch_and_execute_instructions(&mut self, filename: PathBuf) {
         let mut file = File::open(filename).expect("File not found!");
         let mut line = String::new();
 

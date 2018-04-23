@@ -1,4 +1,8 @@
 #![allow(warnings)]
+use std::fmt;
+use std::env;
+use std::path::PathBuf;
+
 mod cpu;
 
 fn main() {
@@ -8,7 +12,14 @@ fn main() {
 
     rusty_cpu.reset_cpu();
 
-    rusty_cpu.fetch_and_execute_instructions("D:\\Documents\\Projects\\Rust Projects\\RustyCPU\\test_programs\\MovingRegisters.tj");
+    match env::home_dir() {
+        Some(path) => {
+            let mut file = PathBuf::from(r"C:\\TestProgram.tj");
+
+            rusty_cpu.fetch_and_execute_instructions(file);
+        },
+        None => println!("Can't find home directory."),
+    }
 
     rusty_cpu.reset_cpu();
 }

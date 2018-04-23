@@ -1,0 +1,9 @@
+A simple CPU simulator written in Rust.
+
+This will only run on Windows because I couldn't get Rust to detect Unix based paths.
+
+To install Rust go here https://www.rust-lang.org/en-US/install.html
+
+Copy the test_programs\TestProgram.tj to C:\
+
+Then to build and run the program type cargo run.
